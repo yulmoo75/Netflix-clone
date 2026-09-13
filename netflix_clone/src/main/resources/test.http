@@ -46,3 +46,15 @@ Content-Type: application/json
 
 ### 삭제
 DELETE http://localhost:8080/api/contents/1
+
+### 콘텐츠 등록 (관리자 토큰 필요)
+POST http://localhost:8080/api/contents
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzg5MzA5MDIzLCJleHAiOjE3ODkzMTI2MjN9.X3N4nv4YVuPZqyaRuhUlZA2fOfGMPm6QKDVnQyi2tpOZ2YgHKAhqhr7Hf-C4QEjcr9KLLMAUcWNwbwWSUCjrtg
+Content-Type: application/json
+
+{
+  "title": "테스트",
+  "description": "설명",
+  "genre": "SF",
+  "director": "감독"
+}
