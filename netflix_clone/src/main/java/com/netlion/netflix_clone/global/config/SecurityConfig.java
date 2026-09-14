@@ -34,10 +34,21 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers(
+                                "/swagger-ui.html",
+                                "/swagger-ui/**",
+                                "/api-docs/**",
+                                "/v3/api-docs.yaml",
+                                "/v3/api-docs",
+                                "/v3/api-docs/**",
+                                "/swagger-resources",
+                                "/swagger-resources/**",
+                                "/webjars/**"
+                        ).permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/contents/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/contents/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/api/contents/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/contents/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/contents/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/api/contents/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/contents/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

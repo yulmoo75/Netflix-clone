@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.netlion.netflix_clone.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.netlion.netflix_clone.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.netlion.netflix_clone.test.iml" filepath="$PROJECT_DIR$/.idea/modules/com.netlion.netflix_clone.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/netflix_clone.iml" filepath="$PROJECT_DIR$/.idea/netflix_clone.iml" />
     </modules>
   </component>
