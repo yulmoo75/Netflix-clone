@@ -47,7 +47,7 @@ Content-Type: application/json
 ### 삭제
 DELETE http://localhost:8080/api/contents/1
 
-### 콘텐츠 등록 (관리자 토큰 필요)
+### 콘텐츠 등록
 POST http://localhost:8080/api/contents
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzg5MzA5MDIzLCJleHAiOjE3ODkzMTI2MjN9.X3N4nv4YVuPZqyaRuhUlZA2fOfGMPm6QKDVnQyi2tpOZ2YgHKAhqhr7Hf-C4QEjcr9KLLMAUcWNwbwWSUCjrtg
 Content-Type: application/json
@@ -58,3 +58,31 @@ Content-Type: application/json
   "genre": "SF",
   "director": "감독"
 }
+
+### 장르 등록
+POST http://localhost:8080/api/genres
+Authorization: Bearer 토큰값
+Content-Type: application/json
+
+{
+  "name": "SF",
+  "name": "로맨스"
+}
+
+### 장르 전체 조회
+GET http://localhost:8080/api/genres
+
+### 콘텐츠 등록 (장르 포함)
+POST http://localhost:8080/api/contents
+Authorization: Bearer 관리자_토큰
+Content-Type: application/json
+
+{
+  "title": "기묘한 이야기",
+  "description": "1980년대 미국 배경 SF 스릴러",
+  "director": "더퍼 형제",
+  "genreIds": [1, 2]
+}
+
+### 조회해서 장르 이름이 잘 나오는지 확인
+GET http://localhost:8080/api/contents/1

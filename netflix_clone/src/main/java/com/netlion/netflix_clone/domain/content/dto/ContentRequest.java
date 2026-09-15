@@ -3,6 +3,8 @@ package com.netlion.netflix_clone.domain.content.dto;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 
+import java.util.List;
+
 @Getter
 public class ContentRequest {
 
@@ -11,7 +13,7 @@ public class ContentRequest {
 
     private String description;
 
-    private String genre;
-
     private String director;
+
+    private List<Long> genreIds;
 }

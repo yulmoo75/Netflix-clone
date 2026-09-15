@@ -46,9 +46,11 @@ public class SecurityConfig {
                                 "/webjars/**"
                         ).permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/contents/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/contents/**").authenticated()
-                        .requestMatchers(HttpMethod.PUT, "/api/contents/**").authenticated()
-                        .requestMatchers(HttpMethod.DELETE, "/api/contents/**").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/contents/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/contents/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/contents/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/genres/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/genres/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

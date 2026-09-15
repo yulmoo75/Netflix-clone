@@ -23,6 +23,8 @@ public class AuthService {
             throw new IllegalArgumentException("이미 가입된 이메일입니다.");
         }
 
+        Role role = request.isAdmin() ? Role.ADMIN : Role.USER;
+        
         User user = User.builder()
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))

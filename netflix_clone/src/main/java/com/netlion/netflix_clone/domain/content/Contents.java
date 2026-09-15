@@ -1,11 +1,14 @@
 package com.netlion.netflix_clone.domain.content;
 
+import com.netlion.netflix_clone.domain.genre.Genre;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -21,18 +24,23 @@ public class Contents {
     @Column(length = 1000)
     private String description;
 
-    private String genre;
-
     private String director;
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
+    @ManyToMany
+    @JoinTable(
+            name = "content_genres",
+            joinColums = @JoinColumn(name = "content_id"),
+            inverseJoinColumns = @JoinColumn(name = "genre_id")
+    )
+    private Set<Genre> genres = new HashSet<>();
+
     @Builder
     public Contents(String title, String description, String genre, String director) {
         this.title = title;
         this.description = description;
-        this.genre = genre;
         this.director = director;
     }
 
@@ -44,7 +52,11 @@ public class Contents {
     public void update(String title, String description, String genre, String director) {
         this.title = title;
         this.description = description;
-        this.genre = genre;
         this.director = director;
+    }
+
+    public void updateGenres(Set<Genre> genres) {
+        this.genres.clear();
+        this.genres.addAll(genres);
     }
 }
