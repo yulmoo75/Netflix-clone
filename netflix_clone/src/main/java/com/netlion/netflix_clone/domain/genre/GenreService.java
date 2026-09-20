@@ -24,7 +24,7 @@ public class GenreService {
     }
 
     public List<GenreResponse> findAll() {
-        return GenreRepository.findAll().stream()
+        return genreRepository.findAll().stream()
                 .map(GenreResponse::new)
                 .collect(Collectors.toList());
     }

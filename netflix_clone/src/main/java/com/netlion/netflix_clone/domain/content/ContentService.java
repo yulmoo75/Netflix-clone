@@ -5,6 +5,8 @@ import com.netlion.netflix_clone.domain.content.dto.ContentResponse;
 import com.netlion.netflix_clone.domain.genre.Genre;
 import com.netlion.netflix_clone.domain.genre.GenreRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,10 +36,9 @@ public class ContentService {
         return contentRepository.save(content).getId();
     }
 
-    public List<ContentResponse> findAll() {
-        return contentRepository.findAll().stream()
-                .map(ContentResponse::new)
-                .collect(Collectors.toList());
+    public Page<ContentResponse> search(String title, String genreName, Pageable pageable) {
+        return contentRepository.search(title, genreName, pageable)
+                .map(ContentResponse::new);
     }
 
     public ContentResponse findById(Long id) {

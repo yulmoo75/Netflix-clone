@@ -4,6 +4,8 @@ import com.netlion.netflix_clone.domain.content.dto.ContentRequest;
 import com.netlion.netflix_clone.domain.content.dto.ContentResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,8 +24,11 @@ public class ContentController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ContentResponse>> findAll() {
-        return ResponseEntity.ok(contentService.findAll());
+    public ResponseEntity<Page<ContentResponse>> search(
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) String genre,
+            Pageable pageable) {
+        return ResponseEntity.ok(contentService.search(title, genre, pageable));
     }
 
     @GetMapping("/{id}")

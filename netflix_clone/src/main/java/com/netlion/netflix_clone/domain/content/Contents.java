@@ -32,7 +32,7 @@ public class Contents {
     @ManyToMany
     @JoinTable(
             name = "content_genres",
-            joinColums = @JoinColumn(name = "content_id"),
+            joinColumns = @JoinColumn(name = "content_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
     private Set<Genre> genres = new HashSet<>();
@@ -49,7 +49,7 @@ public class Contents {
         this.createdAt = LocalDateTime.now();
     }
 
-    public void update(String title, String description, String genre, String director) {
+    public void update(String title, String description, String director) {
         this.title = title;
         this.description = description;
         this.director = director;

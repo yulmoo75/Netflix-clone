@@ -1,6 +1,6 @@
 package com.netlion.netflix_clone.domain.genre;
 
-import jakarta.persistence.*
+import jakarta.persistence.*;
 import jakarta.persistence.GenerationType;
 import lombok.Builder;
 import lombok.Getter;
