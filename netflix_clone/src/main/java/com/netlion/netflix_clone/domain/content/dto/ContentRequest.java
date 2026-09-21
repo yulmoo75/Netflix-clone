@@ -15,5 +15,5 @@ public class ContentRequest {
 
     private String director;
 
-    private List<Long> genreIds;
+    private List<String> genreNames;
 }

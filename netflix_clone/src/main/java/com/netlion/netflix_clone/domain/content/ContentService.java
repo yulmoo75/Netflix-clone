@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -30,9 +29,10 @@ public class ContentService {
                 .director(request.getDirector())
                 .build();
 
-        if (request.getGenreIds() != null && !request.getGenreIds().isEmpty()) {
-            content.updateGenres(resolveGenres(request.getGenreIds()));
+        if (request.getGenreNames() != null && !request.getGenreNames().isEmpty()) {
+            content.updateGenres(resolveGenres(request.getGenreNames()));
         }
+
         return contentRepository.save(content).getId();
     }
 
@@ -51,10 +51,11 @@ public class ContentService {
     public void update(Long id, ContentRequest request) {
         Contents content = contentRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 콘텐츠입니다."));
+
         content.update(request.getTitle(), request.getDescription(), request.getDirector());
 
-        if (request.getGenreIds() != null) {
-            content.updateGenres(resolveGenres(request.getGenreIds()));
+        if (request.getGenreNames() != null) {
+            content.updateGenres(resolveGenres(request.getGenreNames()));
         }
     }
 
@@ -66,10 +67,12 @@ public class ContentService {
         contentRepository.deleteById(id);
     }
 
-    private Set<Genre> resolveGenres(List<Long> genreIds) {
-        Set<Genre> genres = new HashSet<>(genreRepository.findAllById(genreIds));
-        if (genres.size() != genreIds.size()) {
-            throw new IllegalArgumentException("존재하지 않는 장르입니다.");
+    private Set<Genre> resolveGenres(List<String> genreNames) {
+        Set<Genre> genres = new HashSet<>();
+        for (String name : genreNames) {
+            Genre genre = genreRepository.findByName(name)
+                    .orElseGet(() -> genreRepository.save(Genre.builder().name(name).build()));
+            genres.add(genre);
         }
         return genres;
     }

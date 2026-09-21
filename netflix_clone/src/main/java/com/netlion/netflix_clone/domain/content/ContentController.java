@@ -28,7 +28,11 @@ public class ContentController {
             @RequestParam(required = false) String title,
             @RequestParam(required = false) String genre,
             Pageable pageable) {
-        return ResponseEntity.ok(contentService.search(title, genre, pageable));
+
+        String cleanTitle = (title == null || title.isBlank()) ? null : title;
+        String cleanGenre = (genre == null || genre.isBlank()) ? null : genre;
+
+        return ResponseEntity.ok(contentService.search(cleanTitle, cleanGenre, pageable));
     }
 
     @GetMapping("/{id}")

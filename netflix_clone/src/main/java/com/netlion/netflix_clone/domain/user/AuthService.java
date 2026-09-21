@@ -24,11 +24,11 @@ public class AuthService {
         }
 
         Role role = request.isAdmin() ? Role.ADMIN : Role.USER;
-        
+
         User user = User.builder()
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.USER)
+                .role(role)
                 .build();
 
         userRepository.save(user);
