@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashSet;
 import java.util.List;
@@ -52,7 +53,7 @@ public class ContentService {
         Contents content = contentRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 콘텐츠입니다."));
 
-        content.update(request.getTitle(), request.getDescription(), request.getDirector());
+        content.update(request.getTitle(), request.getDescription(), request.getDirector(), content.getImageUrl());
 
         if (request.getGenreNames() != null) {
             content.updateGenres(resolveGenres(request.getGenreNames()));
@@ -75,5 +76,16 @@ public class ContentService {
             genres.add(genre);
         }
         return genres;
+    }
+
+    private final ImageStorageService imageStorageService;
+
+    @Transactional
+    public void uploadImage(Long id, MultipartFile file) {
+        Contents content = contentRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 콘텐츠입니다."));
+
+        String imageUrl = imageStorageService.store(file);
+        content.updateImageUrl(imageUrl);
     }
 }

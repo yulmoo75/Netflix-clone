@@ -15,6 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Table(name = "contents")
 public class Contents {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,6 +26,8 @@ public class Contents {
     private String description;
 
     private String director;
+
+    private String imageUrl;
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
@@ -38,10 +41,11 @@ public class Contents {
     private Set<Genre> genres = new HashSet<>();
 
     @Builder
-    public Contents(String title, String description, String genre, String director) {
+    public Contents(String title, String description, String director, String imageUrl) {
         this.title = title;
         this.description = description;
         this.director = director;
+        this.imageUrl = imageUrl;
     }
 
     @PrePersist
@@ -49,14 +53,19 @@ public class Contents {
         this.createdAt = LocalDateTime.now();
     }
 
-    public void update(String title, String description, String director) {
+    public void update(String title, String description, String director, String imageUrl) {
         this.title = title;
         this.description = description;
         this.director = director;
+        this.imageUrl = imageUrl;
     }
 
     public void updateGenres(Set<Genre> genres) {
         this.genres.clear();
         this.genres.addAll(genres);
+    }
+
+    public void updateImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

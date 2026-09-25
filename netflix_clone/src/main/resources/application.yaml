@@ -23,3 +23,6 @@ springdoc:
     operations-sorter: alpha
   api-docs:
     path: /api-docs
+
+file:
+  upload-dir: C:/netflix-clone-uploads

@@ -43,7 +43,8 @@ public class SecurityConfig {
                                 "/v3/api-docs/**",
                                 "/swagger-resources",
                                 "/swagger-resources/**",
-                                "/webjars/**"
+                                "/webjars/**",
+                                "/images/**"
                         ).permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/contents/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/contents/**").hasRole("ADMIN")

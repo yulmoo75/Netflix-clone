@@ -18,6 +18,7 @@ public class ContentResponse {
     private List<String> genres;
     private String director;
     private LocalDateTime createdAt;
+    private String imageUrl;
 
     public ContentResponse(Contents content) {
         this.id = content.getId();
@@ -28,5 +29,6 @@ public class ContentResponse {
                 .map(Genre::getName)
                 .collect(Collectors.toList());
         this.createdAt = content.getCreatedAt();
+        this.imageUrl = content.getImageUrl();
     }
 }
