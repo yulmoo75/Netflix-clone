@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -53,8 +54,10 @@ public class ContentController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/{id}/image")
-    public ResponseEntity<Void> uploadImage(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
+    @PostMapping(value = "/{id}/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Void> uploadImage(
+            @PathVariable Long id,
+            @RequestParam("file") MultipartFile file) {
         contentService.uploadImage(id, file);
         return ResponseEntity.ok().build();
     }
